@@ -1,0 +1,15 @@
+region_name  = "ap-south-1"
+pub-sub-az   = "ap-south-1a"
+vpc-cidr     = "192.168.0.0/16"
+sub-cidr     = "192.168.1.0/24"
+pvt-sub-cidr = "192.168.2.0/24"
+vpc-tag      = "Terra-Vpc"
+IGW-tag      = "Terra-IGW"
+RT-cidr      = "0.0.0.0/0"
+RT-tag       = "Terra-PUB-RT"
+az           = "ap-south-1a"
+pub-sub-tag  = "PUB-Terra-Sub"
+pvt-sub-tag  = "Pvt-terra-sub"
+Pvt-RT-tag   = "Terra-Pvt-RT"
+
+ 
