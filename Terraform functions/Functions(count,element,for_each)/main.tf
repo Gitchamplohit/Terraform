@@ -111,30 +111,33 @@ resource "aws_route_table_association" "Pvt-sub" {
 
 
 
-#resource "aws_instance" "web-1" {
-#  ami                         = "ami-09b0a86a2c84101e1"
-#  instance_type               = "t2.micro"
-#  availability_zone           = "ap-south-1a"
-#  key_name                    = "key"
-#  subnet_id                   = aws_subnet.PUB-subnet
-#  vpc_security_group_ids      = [aws_security_group.Allow-all.id]
-#  associate_public_ip_address = "true"
-#
-#  tags = {
-#    Name       = "web-1"
-#    Env        = var.env
-#    Owner      = local.Owner      #using locals function for tagging the subnets
-#    costcenter = local.costcenter #using locals function for tagging the subnets
-#    teamDL     = local.teamDL     #using locals function for tagging the subnets
-#  }
-#  user_data = <<-EOF
-#    #!/bin/bash
-#    sudo apt-get update
-#    sudo apt install nginx -y
-#    echo "<h1> ${var.env}-server-1 </h1>" | sudo tee /var/www/html/index.html
-#    sudo systemctl start nginx
-#    sudo systemctl enable nginx
-#  EOF
-#
-#
-#}
+
+resource "aws_instance" "web-1" {
+  #  count = length(var.pub-sub-cidr) ## in case of deploying/creating multiple ec2
+  ami               = "ami-09b0a86a2c84101e1"
+  instance_type     = "t2.micro"
+  availability_zone = "ap-south-1a"
+  key_name          = "key"
+  # subnet_id                   = element(var.pub-sub-cidr.*.id, count.index) ## in case we have multiple subnets and want ec2 in each subnet
+  subnet_id                   = aws_subnet.PUB-subnet[0].id ## deploy ec2 in 1st subnet  
+  vpc_security_group_ids      = [aws_security_group.Allow-all.id]
+  associate_public_ip_address = "true"
+
+  tags = {
+    Name       = "web-1"
+    Env        = var.env
+    Owner      = local.Owner      #using locals function for tagging the subnets
+    costcenter = local.costcenter #using locals function for tagging the subnets
+    teamDL     = local.teamDL     #using locals function for tagging the subnets
+  }
+  user_data = <<-EOF
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt install nginx -y
+    echo "<h1> ${var.env}-server-1 </h1>" | sudo tee /var/www/html/index.html
+    sudo systemctl start nginx
+    sudo systemctl enable nginx
+  EOF
+
+
+}
