@@ -1,0 +1,10 @@
+variable "region_name" {}
+variable "vpc-cidr" {}
+variable "vpc_name" {}
+variable "azs" {}
+variable "pub-sub-cidr" {}
+variable "pvt-sub-cidr" {}
+variable "ingress_value" {}
+variable "env" {}
+variable "amis" {}
+variable "ec2_key" {}

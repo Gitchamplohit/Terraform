@@ -1,0 +1,9 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+.terraform.lock.hcl
+*.tfstate.backup
+crash.log
+key.pem
+logfile.txt
